@@ -9,7 +9,9 @@ export function Preview({ selectedFile, preview }: PreviewProps) {
   return (
     <>
       {selectedFile ? (
-        <img src={preview} />
+        <div>
+          <img src={preview} className="w-auto" />
+        </div>
       ) : (
         <PreviewBlank />
       )}

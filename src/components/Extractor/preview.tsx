@@ -9,12 +9,48 @@ interface PreviewProps {
   preview: any;
 }
 
+interface CropProps {
+  top: number;
+  left: number;
+  height: number;
+  width: number;
+}
+
+interface CropsProps {
+  type: string;
+  page: number;
+  crop: CropProps[];
+}
+
 export function Preview({ selectedFile, preview }: PreviewProps) {
-  const [crop, setCrop] = useState<Crop>()
+  const [cropImage, setCropImage] = useState<Crop>()
+
+  const Crops = {
+    // type: 'DOCUMENT' | 'CONTENT' | 'DATE'
+    type: 'DOCUMENT',
+    page: 1,
+    crop: {
+      top: 20,
+      left: 30,
+      height: 50,
+      width: 60
+    }
+  }
 
   useEffect(() => {
-    console.log(crop)
-  }, [crop])
+    console.log(
+      {
+        type: 'DOCUMENT',
+        page: 1,
+        crop: {
+          top: cropImage?.y,
+          left: cropImage?.x,
+          height: cropImage?.height,
+          width: cropImage?.width
+        }
+      }
+    )
+  }, [cropImage])
 
   return (
     <>
@@ -23,7 +59,7 @@ export function Preview({ selectedFile, preview }: PreviewProps) {
           {selectedFile.type === 'application/pdf' ? (
             {preview}
           ) : (
-            <ReactCrop crop={crop} onChange={c => setCrop(c)}>
+            <ReactCrop crop={cropImage} onChange={c => setCropImage(c)}>
               <img src={preview} />
             </ReactCrop>
           )}

@@ -1,0 +1,24 @@
+.cropContainer > div > div > div:first-child > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.cropContainer > div > div > div:last-child {
+  width: 100%;
+  flex-direction: row !important;
+  background-color: transparent;
+  position: absolute;
+  top: .5rem;
+  left: .5rem;
+}
+
+/* .cropContainer > div > div > div:first-child > div > canvas:first-child {
+  width: 100% !important;
+  height: auto !important;
+  position: relative !important;
+}
+
+.cropContainer > div > div > div:first-child > div > canvas:last-child {
+  width: 100% !important;
+  height: auto !important;
+} */

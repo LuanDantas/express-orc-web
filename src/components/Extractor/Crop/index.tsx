@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { ReactMultiCrop as ReactMultiCropEdit, IOutputData } from '@berviantoleo/react-multi-crop';
 
-export function Upload() {
+
+interface CropProps {
+  image: string;
+}
+
+export function CropDefault({ image }: CropProps) {
   const [cropValue, setCropValue] = useState<Array<IOutputData>>([]);
 
   return (
@@ -13,7 +18,7 @@ export function Upload() {
             setCropValue(value);
           },
         }}
-        image="https://picsum.photos/2000"
+        image={image}
         includeHtmlCanvas
         record={{
           clippings: [
@@ -25,16 +30,15 @@ export function Upload() {
           ],
         }}
         style={{
-          margin: "10px",
+          margin: "0",
         }}
       />
 
-      <div>
-        <h2>Crop Result</h2>
+      {/* <div>
         {cropValue &&
           cropValue.map((objectData: IOutputData, i) => {
             const canvasElement = objectData?.canvasElement?.toDataURL();
-            console.log(objectData.crop)
+            console.log(objectData)
 
             return (
               <div key={`crop-result-${i}`}>
@@ -44,7 +48,7 @@ export function Upload() {
             );
           })
         }
-      </div>
+      </div> */}
     </>
   )
 }

@@ -2,17 +2,14 @@ import { Fragment, useContext, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 
-interface ResultProps {
-  onOpenResults: (setOpenResults: boolean) => void;
-  showResults: boolean;
-}
+import SlideOverContext from '../../../context/slideOver'
 
-export default function Result({ onOpenResults, showResults }: ResultProps) {
-  const [open, setOpen] = useState(showResults)
+export default function Result() {
+  const { setState, state } = useContext(SlideOverContext);
 
   return (
-    <Transition.Root show={showResults} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={state.visible} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={() => setState({...state, visible: false})}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -51,16 +48,16 @@ export default function Result({ onOpenResults, showResults }: ResultProps) {
                       <button
                         type="button"
                         className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                        onClick={() => setOpen(false)}
+                        onClick={() => setState({...state, visible: false})}
                       >
-                        <span className="sr-only">Close panel</span>
+                        <span className="sr-only">Fechar</span>
                         <XIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
                     </div>
                   </Transition.Child>
                   <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
-                      <Dialog.Title className="text-lg font-medium text-gray-900"> Panel title </Dialog.Title>
+                      <Dialog.Title className="text-lg font-medium text-gray-900"> JSON dos recortes </Dialog.Title>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
                       {/* Replace with your content */}

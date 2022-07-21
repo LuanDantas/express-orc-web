@@ -8,10 +8,9 @@ import ThemeContext from '../../../context/theme'
 interface PreviewProps {
   selectedFile: any;
   preview: any;
-  theme: string;
 }
 
-export function Preview({ selectedFile, preview, theme }: PreviewProps) {
+export function Preview({ selectedFile, preview }: PreviewProps) {
   const { setState, state } = useContext(ThemeContext);
 
   const Crops = {

@@ -2,15 +2,20 @@ import { Fragment, useContext, useEffect, useState } from 'react'
 import {
   CheckIcon,
   ChevronDownIcon,
+  PhotographIcon,
 } from '@heroicons/react/solid'
 import { Menu, Transition } from '@headlessui/react'
 import SelectTheme from '../Extractor/SelectTheme'
+
+import SlideOverContext from '../../context/slideOver'
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
 export function Header() {
+  const { setState, state } = useContext(SlideOverContext);
+
   return (
     <div className="lg:flex lg:items-center lg:justify-between w-full py-4 px-5">
       <div className="flex-1 min-w-0">
@@ -22,10 +27,14 @@ export function Header() {
         <span className="sm:ml-3">
           <button
             type="button"
+            onClick={() => setState({
+              ...state,
+              visible: true,
+            })}
             className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            <CheckIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            Enviar
+            <PhotographIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+            Mostrar recortes
           </button>
         </span>
 

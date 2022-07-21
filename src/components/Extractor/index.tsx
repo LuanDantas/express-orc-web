@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Preview } from "./Preview";
 import Result from "./Results";
 import { Upload } from "./Upload";
@@ -6,13 +6,6 @@ import { Upload } from "./Upload";
 export function Extractor() {
   const [selectedFile, setSelectedFile] = useState()
   const [preview, setPreview] = useState<string | undefined>()
-  const [openResults, setOpenResults] = useState(false)
-
-  const theme = 'buttons' // default || buttons
-  
-  useEffect(() => {
-    setOpenResults(true);
-  }, [])
 
   return (
     <section className="flex justify-between h-5/6 mt-2 px-5">
@@ -24,10 +17,9 @@ export function Extractor() {
         />
       </div>
       <div className="flex w-2/4 pl-3">
-        <Preview selectedFile={selectedFile} preview={preview} theme={theme} />
+        <Preview selectedFile={selectedFile} preview={preview} />
       </div>
-
-      <Result onOpenResults={setOpenResults} showResults={false} />
+      <Result />
     </section>
   )
 }

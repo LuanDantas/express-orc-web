@@ -1,14 +1,7 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import {
-  BriefcaseIcon,
-  CalendarIcon,
   CheckIcon,
   ChevronDownIcon,
-  CurrencyDollarIcon,
-  LinkIcon,
-  LocationMarkerIcon,
-  PencilIcon,
 } from '@heroicons/react/solid'
 import { Menu, Transition } from '@headlessui/react'
 import SelectTheme from '../Extractor/SelectTheme'

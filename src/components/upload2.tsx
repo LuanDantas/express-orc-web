@@ -8,9 +8,6 @@ export const Demo: React.FC = () => {
   const onCrop = () => {
     const imageElement: any = cropperRef?.current;
     const cropper: any = imageElement?.cropper;
-
-    // console.log(cropper.getCroppedCanvas().toDataURL());
-    // console.log(cropper.cropBoxData);
   };
 
   return (

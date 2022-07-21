@@ -1,14 +1,18 @@
-import { Fragment } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+
+import ThemeContext from '../../../context/theme'
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function SelectTheme() {
+  const { setState, state } = useContext(ThemeContext);
+
   return (
-    <Menu as="div" className="relative inline-block text-left">
+    <Menu as="div" className="relative inline-block text-left z-10">
       <div>
         <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
           Estilo de preview
@@ -31,6 +35,10 @@ export default function SelectTheme() {
               {({ active }) => (
                 <a
                   href="#"
+                  onClick={() => setState({
+                    ...state,
+                    type: 'default',
+                  })}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'
@@ -44,6 +52,10 @@ export default function SelectTheme() {
               {({ active }) => (
                 <a
                   href="#"
+                  onClick={() => setState({
+                    ...state,
+                    type: 'buttons',
+                  })}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm'

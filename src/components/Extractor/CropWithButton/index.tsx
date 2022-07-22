@@ -10,22 +10,24 @@ interface CropProps {
 
 export function CropWithButton({ image }: CropProps) {
   const [cropValue, setCropValue] = useState<Array<IOutputData>>([]);
+  const cropsArray: Array<any> = [];
 
-  const Crops = {
-    // type: 'DOCUMENT' | 'CONTENT' | 'DATE'
-    type: 'DOCUMENT',
-    page: 1,
-    crop: {
-      top: 20,
-      left: 30,
-      height: 50,
-      width: 60
-    }
-  }
-  
   useEffect(() => {
     cropValue.map((item) => {
-      console.log(item)
+      const obj = JSON.parse(String(item.crop));
+
+      cropsArray.push({
+        type: 'DOCUMENT',
+        page: 1,
+        crop: {
+          top: obj.y,
+          left: obj.x,
+          height: obj.h,
+          width: obj.w,
+        },
+      });
+
+      console.log(cropsArray);
     })
   }, [cropValue])
 

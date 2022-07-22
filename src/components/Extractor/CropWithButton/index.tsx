@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactMultiCrop, IOutputData } from "@berviantoleo/react-multi-crop";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/solid";
 
@@ -10,6 +10,24 @@ interface CropProps {
 
 export function CropWithButton({ image }: CropProps) {
   const [cropValue, setCropValue] = useState<Array<IOutputData>>([]);
+
+  const Crops = {
+    // type: 'DOCUMENT' | 'CONTENT' | 'DATE'
+    type: 'DOCUMENT',
+    page: 1,
+    crop: {
+      top: 20,
+      left: 30,
+      height: 50,
+      width: 60
+    }
+  }
+  
+  useEffect(() => {
+    cropValue.map((item) => {
+      console.log(item)
+    })
+  }, [cropValue])
 
   return (
     <>
@@ -27,7 +45,6 @@ export function CropWithButton({ image }: CropProps) {
               Deletar seleção
             </button>
           }
-          // discardButton={<button>Discard</button>}
           id="canvas"
           image={image}
           input={{

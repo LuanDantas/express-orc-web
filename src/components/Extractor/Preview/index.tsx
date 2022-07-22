@@ -13,18 +13,6 @@ interface PreviewProps {
 export function Preview({ selectedFile, preview }: PreviewProps) {
   const { setState, state } = useContext(ThemeContext);
 
-  const Crops = {
-    // type: 'DOCUMENT' | 'CONTENT' | 'DATE'
-    type: 'DOCUMENT',
-    page: 1,
-    crop: {
-      top: 20,
-      left: 30,
-      height: 50,
-      width: 60
-    }
-  }
-
   return (
     <>
       {selectedFile ? (

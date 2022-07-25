@@ -1,41 +1,42 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ReactMultiCrop as ReactMultiCropEdit, IOutputData } from '@berviantoleo/react-multi-crop';
+
+import ResultContext from '../../../context/results'
 
 interface CropProps {
   image: string;
 }
 
-// const Crops = {
-//   type: 'DOCUMENT' | 'CONTENT' | 'DATE'
-//   page: 1,
-//   crop: {
-//     top: 20,
-//     left: 30,
-//     height: 50,
-//     width: 60
-//   }
-// }
-
 export function CropDefault({ image }: CropProps) {
+  const cropArray: Array<any> = [];
+  let cropsArray: Array<any> = [];
   const [cropValue, setCropValue] = useState<Array<IOutputData>>([]);
-  const cropsArray: Array<any> = [];
+  const { setResultState, resultState } = useContext(ResultContext);
+
+  cropArray.push({
+    type: 'DOCUMENT',
+    page: 1,
+    crops: {},
+  });
 
   useEffect(() => {
     cropValue.map((item) => {
-      const obj = JSON.parse(String(item.crop));
+      const newCrops = JSON.parse(String(item.crop));
+      cropsArray.push(newCrops);
 
-      cropsArray.push({
-        type: 'DOCUMENT',
-        page: 1,
-        crop: {
-          top: obj.y,
-          left: obj.x,
-          height: obj.h,
-          width: obj.w,
-        },
+      let carsProperties = cropArray.map(car => {
+        let properties = {
+          ...car,
+          "crops": cropsArray,
+        };
+
+        return properties;
       });
 
-      console.log(cropsArray);
+      setResultState({
+        ...resultState,
+        result: [...carsProperties],
+      })
     })
   }, [cropValue])
 
@@ -50,15 +51,15 @@ export function CropDefault({ image }: CropProps) {
         }}
         image={image}
         includeHtmlCanvas
-        record={{
-          clippings: [
-            {
-              id: 1,
-              rect: { x1: 0.0, y1: 0.0, x2: 0.2, y2: 0.2 },
-              rectPx: {},
-            },
-          ],
-        }}
+        // record={{
+        //   clippings: [
+        //     {
+        //       id: 1,
+        //       rect: { x1: 0.0, y1: 0.0, x2: 0.2, y2: 0.2 },
+        //       rectPx: {},
+        //     },
+        //   ],
+        // }}
         style={{
           margin: "0",
         }}

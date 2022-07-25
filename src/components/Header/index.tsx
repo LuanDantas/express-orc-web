@@ -1,6 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import {
-  CheckIcon,
   ChevronDownIcon,
   PhotographIcon,
 } from '@heroicons/react/solid'

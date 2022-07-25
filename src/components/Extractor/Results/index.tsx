@@ -3,9 +3,11 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XIcon } from '@heroicons/react/outline'
 
 import SlideOverContext from '../../../context/slideOver'
+import ResultContext from '../../../context/results'
 
 export default function Result() {
   const { setState, state } = useContext(SlideOverContext);
+  const { setResultState, resultState } = useContext(ResultContext);
 
   return (
     <Transition.Root show={state.visible} as={Fragment}>
@@ -60,11 +62,44 @@ export default function Result() {
                       <Dialog.Title className="text-lg font-medium text-gray-900"> JSON dos recortes </Dialog.Title>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                      {/* Replace with your content */}
                       <div className="absolute inset-0 px-4 sm:px-6">
-                        <div className="h-full border-2 border-dashed border-gray-200" aria-hidden="true" />
+                        <div className="flex flex-wrap items-start overflow-auto h-full p-3 border-2 border-dashed border-gray-200" aria-hidden="true">
+                          {resultState.result.map((item: any, i: number) => {
+                            return (
+                              <div key={i} className="w-full block border-b-2 border-b-gray-100 pb-4 pt-4 first-of-type:pt-0 last-of-type:border-none last-of-type:pb-0">
+                                <p><span className='inline-block w-28 font-semibold'>Tipo:</span> {item.type}</p>
+                                <p><span className='inline-block w-28 font-semibold'>Página:</span> {item.page}</p>
+
+                                <div className='mt-2 bg-slate-100 p-3'>
+                                  <h1 className='font-bold mb-3'>Crops:</h1>
+                                  {
+                                    item.crops.map((crop: any) => {
+                                      return (
+                                        <>
+                                          <ul className='border-spacing-3 border-slate-300 border-dashed border-t-2 py-3'>
+                                            <li>
+                                              <span className='inline-block w-20 font-semibold'>Posição Y:</span> {crop.y}
+                                            </li>
+                                            <li>
+                                              <span className='inline-block w-20 font-semibold'>Posição X:</span> {crop.x}
+                                            </li>
+                                            <li>
+                                              <span className='inline-block w-20 font-semibold'>Largura:</span> {crop.w}
+                                            </li>
+                                            <li>
+                                              <span className='inline-block w-20 font-semibold'>Altura:</span> {crop.h}
+                                            </li>
+                                          </ul>
+                                        </>
+                                      )
+                                    })
+                                  }
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
                       </div>
-                      {/* /End replace */}
                     </div>
                   </div>
                 </Dialog.Panel>

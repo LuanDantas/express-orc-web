@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ReactMultiCrop, IOutputData } from "@berviantoleo/react-multi-crop";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/solid";
+
+import ResultContext from '../../../context/results';
 
 import styles from './styles.module.css';
 
@@ -9,25 +11,36 @@ interface CropProps {
 }
 
 export function CropWithButton({ image }: CropProps) {
+  const cropArray: Array<any> = [];
+  let cropsArray: Array<any> = [];
+
   const [cropValue, setCropValue] = useState<Array<IOutputData>>([]);
-  const cropsArray: Array<any> = [];
+  const { setResultState, resultState } = useContext(ResultContext);
+
+  cropArray.push({
+    type: 'DOCUMENT',
+    page: 1,
+    crops: {},
+  });
 
   useEffect(() => {
     cropValue.map((item) => {
-      const obj = JSON.parse(String(item.crop));
+      const newCrops = JSON.parse(String(item.crop));
+      cropsArray.push(newCrops);
 
-      cropsArray.push({
-        type: 'DOCUMENT',
-        page: 1,
-        crop: {
-          top: obj.y,
-          left: obj.x,
-          height: obj.h,
-          width: obj.w,
-        },
+      let cropsProperties = cropArray.map(car => {
+        let properties = {
+          ...car,
+          "crops": cropsArray,
+        };
+
+        return properties;
       });
 
-      console.log(cropsArray);
+      setResultState({
+        ...resultState,
+        result: [...cropsProperties],
+      })
     })
   }, [cropValue])
 
@@ -55,15 +68,15 @@ export function CropWithButton({ image }: CropProps) {
             },
           }}
           includeHtmlCanvas
-          record={{
-            clippings: [
-              {
-                id: 1,
-                rect: { x1: 0.0, y1: 0.0, x2: 0.2, y2: 0.2 },
-                rectPx: {},
-              },
-            ],
-          }}
+          // record={{
+          //   clippings: [
+          //     {
+          //       id: 1,
+          //       rect: { x1: 0.0, y1: 0.0, x2: 0.2, y2: 0.2 },
+          //       rectPx: {},
+          //     },
+          //   ],
+          // }}
           showButton
           style={{
             margin: "0",

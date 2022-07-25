@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { ReactMultiCrop as ReactMultiCropEdit, IOutputData } from '@berviantoleo/react-multi-crop';
 
-import ResultContext from '../../../context/results'
+import ResultContext from '../../../context/results';
 
 interface CropProps {
   image: string;
@@ -10,6 +10,7 @@ interface CropProps {
 export function CropDefault({ image }: CropProps) {
   const cropArray: Array<any> = [];
   let cropsArray: Array<any> = [];
+
   const [cropValue, setCropValue] = useState<Array<IOutputData>>([]);
   const { setResultState, resultState } = useContext(ResultContext);
 
@@ -24,7 +25,7 @@ export function CropDefault({ image }: CropProps) {
       const newCrops = JSON.parse(String(item.crop));
       cropsArray.push(newCrops);
 
-      let carsProperties = cropArray.map(car => {
+      let cropsProperties = cropArray.map(car => {
         let properties = {
           ...car,
           "crops": cropsArray,
@@ -35,7 +36,7 @@ export function CropDefault({ image }: CropProps) {
 
       setResultState({
         ...resultState,
-        result: [...carsProperties],
+        result: [...cropsProperties],
       })
     })
   }, [cropValue])

@@ -3,6 +3,8 @@ import { CropDefault } from '../Crop';
 import { CropWithButton } from "../CropWithButton";
 import { useContext } from 'react';
 
+import { PDF } from '../pdf';
+
 import ThemeContext from '../../../context/theme'
 
 interface PreviewProps {
@@ -18,7 +20,7 @@ export function Preview({ selectedFile, preview }: PreviewProps) {
       {selectedFile ? (
         <>
           {selectedFile.type === 'application/pdf' ? (
-            {preview}
+            <PDF file={preview} />
           ) : (
             <div className="w-full mt-1 justify-center items-center px-1 pt-1 pb-1 border-2 border-gray-300 border-dashed rounded-md relative overflow-auto">
               { state.type == 'default' ? <CropDefault image={preview} /> : <CropWithButton image={preview} /> }

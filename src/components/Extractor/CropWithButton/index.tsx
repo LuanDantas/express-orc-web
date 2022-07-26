@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { ReactMultiCrop, IOutputData } from "@berviantoleo/react-multi-crop";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/solid";
+import SelectSteps from "../SelectSteps";
 
 import ResultContext from '../../../context/results';
 
@@ -16,6 +17,16 @@ export function CropWithButton({ image }: CropProps) {
 
   const [cropValue, setCropValue] = useState<Array<IOutputData>>([]);
   const { setResultState, resultState } = useContext(ResultContext);
+
+  const [typeCrop, setTypeCrop] = useState(false)
+  const [contentCrop, setContentCrop] = useState(0)
+
+  function clickHandler() {
+    return (event: React.MouseEvent) => {
+      event.preventDefault();
+      console.log('ENTROU SIM')
+    }
+  }
 
   cropArray.push({
     type: 'DOCUMENT',
@@ -49,10 +60,15 @@ export function CropWithButton({ image }: CropProps) {
       <div className={styles.cropContainer}>
         <ReactMultiCrop
           addButton={
-            <button type="button" className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button
+              type="button"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              // onClick={() => clickHandler()}
+            >
               <PlusCircleIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-              Adicionar seleção
+              Adicionar corte (Document)
             </button>
+            // <SelectSteps />
           }
           deleteButton={
             <button type="button" className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-rose-400 hover:bg-rose-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -65,9 +81,9 @@ export function CropWithButton({ image }: CropProps) {
           input={{
             onChange: function (value: Array<IOutputData>) {
               setCropValue(value);
-            },
+            }
           }}
-          includeHtmlCanvas
+          // includeHtmlCanvas
           // record={{
           //   clippings: [
           //     {

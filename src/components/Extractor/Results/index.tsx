@@ -73,10 +73,10 @@ export default function Result() {
                                 <div className='mt-2 bg-slate-100 p-3'>
                                   <h1 className='font-bold mb-3'>Crops:</h1>
                                   {
-                                    item.crops.map((crop: any) => {
+                                    item.crops.map((crop: any, index: number) => {
                                       return (
                                         <>
-                                          <ul className='border-spacing-3 border-slate-300 border-dashed border-t-2 py-3'>
+                                          <ul key={index} className='border-spacing-3 border-slate-300 border-dashed border-t-2 py-3'>
                                             <li>
                                               <span className='inline-block w-20 font-semibold'>Posição Y:</span> {crop.y}
                                             </li>

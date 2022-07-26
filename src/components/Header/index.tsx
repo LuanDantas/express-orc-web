@@ -4,6 +4,7 @@ import {
   PhotographIcon,
 } from '@heroicons/react/solid'
 import { Menu, Transition } from '@headlessui/react'
+import SelectStep from '../Extractor/SelectStep'
 import SelectTheme from '../Extractor/SelectTheme'
 
 import SlideOverContext from '../../context/slideOver'
@@ -21,7 +22,8 @@ export function Header() {
         <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">Express OCR Web</h2>
       </div>
       <div className="mt-5 flex lg:mt-0 lg:ml-4">
-        <SelectTheme />
+        <SelectStep />
+        {/* <SelectTheme /> */}
 
         <span className="sm:ml-3">
           <button

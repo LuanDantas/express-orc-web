@@ -21,7 +21,8 @@ export function Preview({ selectedFile, preview }: PreviewProps) {
             {preview}
           ) : (
             <div className="w-full mt-1 justify-center items-center px-1 pt-1 pb-1 border-2 border-gray-300 border-dashed rounded-md relative overflow-auto">
-              { state.type == 'default' ? <CropDefault image={preview} /> : <CropWithButton image={preview} /> }
+              {/* { state.type == 'default' ? <CropDefault image={preview} /> : <CropWithButton image={preview} /> } */}
+              <CropWithButton image={preview} />
             </div>
           )}
         </>

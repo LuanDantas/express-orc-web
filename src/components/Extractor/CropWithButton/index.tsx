@@ -3,6 +3,7 @@ import { ReactMultiCrop, IOutputData } from "@berviantoleo/react-multi-crop";
 import { PlusCircleIcon, TrashIcon } from "@heroicons/react/solid";
 
 import ResultContext from '../../../context/results';
+import StagesContext from "../../../context/stages";
 
 import styles from './styles.module.css';
 
@@ -15,7 +16,38 @@ export function CropWithButton({ image }: CropProps) {
   let cropsArray: Array<any> = [];
 
   const [cropValue, setCropValue] = useState<Array<IOutputData>>([]);
+
   const { setResultState, resultState } = useContext(ResultContext);
+  const { stageState, setStageState } = useContext(StagesContext);
+
+  useEffect(() => {
+    console.log(stageState.stage)
+  }, [stageState])
+
+  useEffect(() => {
+    const cropLength = cropValue.length
+
+    if (cropLength == 0) {
+      setStageState({
+        ...stageState,
+        stage: 'type',
+      })
+    }
+    else if (cropLength > 0 && cropLength <= 4) {
+      setStageState({
+        ...stageState,
+        stage: 'content',
+      })
+    }
+    else if (cropLength > 4) {
+      setStageState({
+        ...stageState,
+        stage: 'date',
+      })
+    }
+
+    console.log(cropValue.length)
+  }, [cropValue])
 
   cropArray.push({
     type: 'DOCUMENT',
@@ -49,9 +81,14 @@ export function CropWithButton({ image }: CropProps) {
       <div className={styles.cropContainer}>
         <ReactMultiCrop
           addButton={
-            <button type="button" className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <button
+              type="button"
+              className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
               <PlusCircleIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-              Adicionar seleção
+              {stageState.stage === 'type' && 'Adicionar corte - Tipo'}
+              {stageState.stage === 'content' && 'Adicionar corte - Conteúdo'}
+              {stageState.stage === 'date' && 'Adicionar corte - Data'}
             </button>
           }
           deleteButton={
@@ -67,7 +104,7 @@ export function CropWithButton({ image }: CropProps) {
               setCropValue(value);
             },
           }}
-          includeHtmlCanvas
+          // includeHtmlCanvas
           // record={{
           //   clippings: [
           //     {

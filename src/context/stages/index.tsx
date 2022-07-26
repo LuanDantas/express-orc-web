@@ -11,7 +11,8 @@ type StagesContextProps = {
 
 const DEFAULT_VALUE = {
   stageState: {
-    stage: 'type',
+    // stage: 'type',
+    stage: '',
   },
   setStageState: () => {},
 }

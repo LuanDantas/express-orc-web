@@ -8,6 +8,8 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
+// type: 'DOCUMENT' | 'CONTENT' | 'DATE'
+
 export default function SelectStep() {
   const { stageState, setStageState } = useContext(StagesContext);
 
@@ -37,7 +39,7 @@ export default function SelectStep() {
                   href="#"
                   onClick={() => setStageState({
                     ...stageState,
-                    stage: 'type',
+                    stage: 'DOCUMENT',
                   })}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -54,7 +56,7 @@ export default function SelectStep() {
                   href="#"
                   onClick={() => setStageState({
                     ...stageState,
-                    stage: 'content',
+                    stage: 'CONTENT',
                   })}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -69,10 +71,9 @@ export default function SelectStep() {
               {({ active }) => (
                 <a
                   href="#"
-                  // onClick={() => onStepSelect('date')}
                   onClick={() => setStageState({
                     ...stageState,
-                    stage: 'date',
+                    stage: 'DATE',
                   })}
                   className={classNames(
                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',

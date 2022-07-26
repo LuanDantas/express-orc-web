@@ -1,6 +1,6 @@
 import { Fragment, useContext, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { XIcon } from '@heroicons/react/outline'
+import { XIcon, DocumentIcon } from '@heroicons/react/outline'
 
 import SlideOverContext from '../../../context/slideOver'
 import ResultContext from '../../../context/results'
@@ -12,7 +12,7 @@ export default function Result() {
 
   useEffect(() => {
     resultState.result.map((item: any) => {
-      console.log(item)
+      console.log('Teste', item)
     })
   }, [resultState])
 
@@ -68,11 +68,18 @@ export default function Result() {
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
                       <div className="absolute inset-0 px-4 sm:px-6">
                         {
-                          resultState.result.map((item: any) => {
-                            return (
-                              <Review type={item.type} page={item.page} crops={item.crops} />
-                            )
-                          })
+                          resultState.result.length
+                          ?
+                            resultState.result.map((item: any) => {
+                              return (
+                                <Review type={item.type} page={item.page} crops={item.crops} />
+                              )
+                            })
+                          :
+                          <div className='w-full h-full flex flex-wrap justify-center items-center content-center'>
+                            <DocumentIcon className="h-10 w-10" aria-hidden="true" />
+                            <h1 className='w-full font-semibold text-center mt-3'>Nenhum corte realizado até o momento</h1>
+                          </div>
                         }
                       </div>
                     </div>
